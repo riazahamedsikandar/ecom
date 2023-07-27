@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FB_API_KEY,
-  authDomain: import.meta.env.VITE_FB_AUTH,
-  projectId: import.meta.env.VITE_FB_PRJ_ID,
-  storageBucket: import.meta.env.VITE_FB_STORAGE,
-  messagingSenderId: import.meta.env.VITE_FB_MESSAGE_ID,
-  appId: import.meta.env.VITE_FB_APP_ID,
+    apiKey: "AIzaSyCi-eCcL9QJddLTv9dhDacI-sOhw6twsHE",
+    authDomain: "ecom-e61b0.firebaseapp.com",
+    projectId: "ecom-e61b0",
+    storageBucket: "ecom-e61b0.appspot.com",
+    messagingSenderId: "841843588438",
+    appId: "1:841843588438:web:8b9abca0bad93966d56af7"
 };
 
 const app = initializeApp(firebaseConfig);
