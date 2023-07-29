@@ -1,47 +1,65 @@
-# React JS E-Commerce App
+# Salinaka | E-commerce react app
+Simple ecommerce react js app with firebase [typescript].
+![Firebase Deploy](https://github.com/jgudo/ecommerce-react/workflows/Firebase%20Deploy/badge.svg)
 
-![preview](https://user-images.githubusercontent.com/92743495/235304178-9b0247d0-0828-445e-9d86-ff5699f8e160.gif)
+### [Live demo](https://salinaka-ecommerce.web.app/)
 
-## Getting Started 
+![Salinaka screenshot](https://raw.githubusercontent.com/jgudo/ecommerce-react/master/static/screeny1.png)
+![Salinaka screenshot](https://raw.githubusercontent.com/jgudo/ecommerce-react/master/static/screeny2.png)
+![Salinaka screenshot](https://raw.githubusercontent.com/jgudo/ecommerce-react/master/static/screeny3.png)
+![Salinaka screenshot](https://raw.githubusercontent.com/jgudo/ecommerce-react/master/static/screeny7.png)
 
-This website made with Vite, ReactJS, Firebase, Tailwind CSS and Redux.
+## Run Locally
+### 1. Install Dependencies
+```sh
+$ yarn install
+```
 
-You can test it here (https://rustysym.github.io/reactjs-e-commerce-frontend/)
+### 2. Create a new firebase project
+Login to your google account and create a new firebase project [here](https://console.firebase.google.com/u/0/)
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/emrekalfa)
+Create an `.env` file and add the following variables.
 
+```
+// SAMPLE CONFIG .env, you should put the actual config details found on your project settings
 
-## Requirements
+VITE_FIREBASE_API_KEY=AIzaKJgkjhSdfSgkjhdkKJdkjowf
+VITE_FIREBASE_AUTH_DOMAIN=yourauthdomin.firebaseapp.com
+VITE_FIREBASE_DB_URL=https://yourdburl.firebaseio.com
+VITE_FIREBASE_PROJECT_ID=yourproject-id
+VITE_FIREBASE_STORAGE_BUCKET=yourstoragebucket.appspot.com
+VITE_FIREBASE_MSG_SENDER_ID=43597918523958
+VITE_FIREBASE_APP_ID=234598789798798fg3-034
 
-| Requirements |  |
-| --- | --- |
-| Firebase | [Firebase](https://firebase.google.com)|
-| Authentication | Firebase user authentication |
-| .env | Create your .env file for keys|
+``` 
 
-## Upcoming Features
+After setting up necessary configuration,
+create a **Database** and choose **Cloud Firestore** and start in test mode
 
-- Firestore Database for products
-- ~~User profile~~
-- Wishlist
-- Other pages like Category, Contact Us...
-- ~~Footer~~
-- UI arrangement
-- ~~Localstorage for theme~~
+### 3. Run development server
+```sh 
+$ yarn dev
+```
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Build the project
+```sh
+$ yarn build
+```
 
-### `npm install`
+## How to add products or perform CRUD operations for Admin
+1. Navigate to your site to `/signup`
+2. Create an account for yourself
+3. Go to your firestore collection `users collection` and edit the account you've just created. Change the role from `USER` to `ADMIN`.
+4. Reload or sigin again to see the changes. 
 
-Using this command we install the dependencies found in the `package.json` file.
+**Firebase Admin to be integrated soon**
 
-### `npm run dev`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* Admin CRUD operations
+* Firebase authentication
+* Firebase auth provider authentication
+* Account creation and edit
 
