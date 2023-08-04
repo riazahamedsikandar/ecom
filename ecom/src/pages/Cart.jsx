@@ -1,102 +1,82 @@
-import React from 'react'
 
-import { Container , Row , Col } from 'reactstrap'
-import { motion } from 'framer-motion'
-import { cartActions } from '../Redux/Slices/CartSlice'
-import { useSelector , useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCartData, getCartData } from '../Redux/AppReducer/action';
+import { Box,Button,GridItem,Image,Select,SimpleGrid, Text } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom';
 
-import Helmet from '../Components/Helmet/Helmet'
-import CommonSection from '../Components/UI/CommonSection'
-import '../Styles/Cart.css'
+
 
 const Cart = () => {
+    const bag=useSelector((store)=>store.AppReducer.bag);
+    const dispatch=useDispatch()
+    const navigate=useNavigate()
+    const [total, settotal] = useState(0);
 
-  const cartItems = useSelector(state => state.cart.cartItems);
-  const totalAmount = useSelector((state) => state.cart.totalAmount);
 
+    useEffect(()=>{
+      
+        dispatch(getCartData())
+      
+    },[bag.length,dispatch])
+    
+
+    const handleTotal = () => {
+      let Total = 0;
+      bag.map((ele) => {
+        Total += Math.floor(ele.price);
+      });
+      settotal(Total);
+    };
+    useEffect(() => {
+      handleTotal();
+    }, [bag]);
+
+
+
+ 
   return (
-    <Helmet title='Cart'>
-      <CommonSection title='Shopping Cart' />
-        <section>
-          <Container>
-            <Row>
-              <Col lg='9'>
-              {
+    
+    
+      <Box align="center" >
+            {
+            bag.length && bag.map((item)=>{
+            return(
+              <Box p="50px" w="90%" display={"flex"}  border={"1px solid gray"} key={item.id}>
+                <Box  w="100%" >  
 
+                <Text  color="black">{item.pa1}</Text>
 
-                cartItems.length === 0 ? ( 
-                  <h2 className='fs-4 text-center' >No Item Added To The Cart</h2>
-                 ) : (
-                <table className='table bordered'>
-                <thead>
-                  <tr>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Price</th>
-                    <th>Qty</th>
-                    <th>
-                      Delete
-                    </th>
-                  </tr>
-                </thead>
+                <Text paddingLeft="5px" color="gray">{item.title}</Text>
+              
+                <Text fontSize="18px" color="black">{item.category}</Text>
+             
+                <Text fontWeight='bold' color="black">{`Price : ${item.price}`}</Text>
+                
+                <Button fontSize={["20px","","","20px"]}  bgColor="black" color="white" _hover={{bgColor:'black'}}  onClick={()=>{dispatch(deleteCartData(item.id))}} >Delete</Button>
+                
+                </Box>
 
-                <tbody>
-                  {
-                    cartItems.map((item , index) => (
-                      <Tr item={item} key={index} />
-                    ))
-                  }
-                </tbody>
-              </table>
-
-
-              )}
-              </Col>
-
-              <Col lg='3'>
-                <div>
-                  <h6 className='d-flex align-items-center justify-content-between' >
-                    Total
-                    <span className='fs-4 fw-bold' > {totalAmount} TND </span>
-                  </h6>
-                </div>
-                <p className='fs-6 mt-2' >Taxes And Shipping Will Calculate In Checkout</p>
-                <div>
-                  <button className="buy__btn w-100"><Link to='/checkout'>Checkout</Link></button>
-                  <button className="buy__btn w-100 mt-3"><Link to='/shop'>Continue Shopping</Link></button>
-                </div>
-              </Col>
-
-            </Row>
-          </Container>
-        </section>
-    </Helmet>
-    )
-}
-
-const Tr = ({item}) => {
-
-  const dispatch = useDispatch()
-  const deleteProduct = () => {
-    dispatch(cartActions.deleteItem(item.id))
-  }
-
-  return <tr>
-     <td>
-        <img src={item.imgUrl} alt="" />
-      </td>
-      <td>{item.productName}</td>
-      <td>{item.price} TND</td>
-      <td>{item.quantity}px</td>
-      <td>
-        <motion.i 
-        onClick={deleteProduct}
-        whileTap={{ scale: 1.2 }}
-        class="ri-delete-bin-line">
-        </motion.i>
-      </td>
-    </tr>
+                <Box boxSize={["80px","90px","140px"]} >
+              
+                  <Image 
+                  borderRadius='10px'
+                  bgColor="white"
+                  h="100%"
+                  src={item.lazyloaded} 
+                  />
+                </Box>
+            
+             </Box>
+            )
+          })} 
+          <Box w="90%" fontWeight='bold' align="end" >
+            Total Price : {total}
+          </Box>
+          <Button  fontSize={["16px","","","20px"]} border="1px solid black" _hover={{bgColor:'white'}} bgColor="white"  m="20px" onClick={()=>{navigate(`/checkout`)}} >Proceed to checkout</Button> 
+             
+      </Box>
+  )
 }
 
 export default Cart

@@ -1,9 +1,19 @@
-import "./App.css";
 
-import Layout from './Components/Layout/Layout'
+import './App.css';
+import PhoneIcon from './Components/PhoneIcon';
+import MainRoutes from './Pages/MainRoutes';
 
-function App() {
-  return <Layout/> ;
+
+
+function App(){
+  return (
+
+    <div className="App">
+      <PhoneIcon/>
+      <MainRoutes/>
+    </div>
+
+  );
 }
 
 export default App;
